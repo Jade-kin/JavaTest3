@@ -1,0 +1,20 @@
+version: "3"
+services:
+  mysql:
+    container_name: mysql-5.6
+    image: registry.saas.hand-china.com/tools/mysql:5.6
+    ports:
+    - 0.0.0.0:3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      mysql_ip: 192.168.99.100
+      mysql_name: sakila
+      user: root
+      port: 3306
+
+  java:
+    container_name: Exam1
+    image: registry.saas.hand-china.com/hap-cloud/base:latest
+    environment:
+      countryId: 2
+      customerId: 130
