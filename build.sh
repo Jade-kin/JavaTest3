@@ -1,5 +1,5 @@
-mvn clean package
 
-docker build -t docker/java .
+#!/bin/bash
 
-docker build -t docker/mysql .
+docker-compose build
+docker-compose up
