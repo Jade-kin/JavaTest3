@@ -1,23 +1,31 @@
 version: "3"
 services:
-  mysql-1:
-    container_name: mysql-3
+  mysql:
+    container_name: mysql-1
     build: ./docker/mysql
-    image: javatest3/mysql:1.0
+    image: mysql-1:5.6
     ports:
-      - "3306:3306"
+    - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: 123456
-  java-1:
-    container_name: java-3
-    build: ./docker/java
-    image: javatest3/java:1.0
+    volumes:
+    - ./mysql/mysql_data:/var/lib/mysql
+    - ./mysql/mysql_db.cnf:/etc/mysql/conf.d/mysql_db.cnf
+    expose:
+    - "3306"
+  java:
+    container_name: java-1
+    build: .
+    image: java-1:test
     depends_on:
-      - mysql-1
+      - mysql
     links:
-      - mysql-1
+      - mysql
     environment:
-      MYSQL_IP: mysql-1
-      MYSQL_PORT: 3306
-      countryId: 2
-      customerId: 130
+       MYSQL_IP: mysql
+       MYSQL_PORT: 3306
+       USERNAME: root
+       MYSQL_ROOT_PASSWORD: 123456
+       DBNAME: dump
+       COUNTRYID: 2
+       CUSTOMERID: 130
